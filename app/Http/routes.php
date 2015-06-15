@@ -12,5 +12,9 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+  return view('welcome');
 });
+
+Route::post('/save', array('before' => 'csrf', function() {
+	echo 'saved';
+}));
