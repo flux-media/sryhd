@@ -31,7 +31,7 @@ Route::post('/save', array('before' => 'csrf', function(Request $request) {
 		$base->text('살려야한다', 250, 67, function($font) {
 			// $font->file('gungsuh.ttf');
 			// $font->file('NanumGothicExtraBold.ttf');
-			$font->file('NanumMyeongjoExtraBold.ttf');
+			$font->file(public_path('NanumMyeongjoExtraBold.ttf'));
 			$font->size(13);
 			$font->valign('top');
 		});
