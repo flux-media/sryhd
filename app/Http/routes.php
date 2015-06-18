@@ -18,7 +18,7 @@ Route::get('/', function () {
   return view('welcome');
 });
 
-Route::post('/save', array('before' => 'csrf', function(Request $request) {
+Route::get('/save', array('before' => 'csrf', function(Request $request) {
 	$file = $request->file('screen');
 	if ($request->hasFile('screen') && $file->isValid()) {
 		$base = Image::make('empty_screen.jpg');
@@ -38,6 +38,6 @@ Route::post('/save', array('before' => 'csrf', function(Request $request) {
 
 		return $base->response('jpg', 100);
 	} else {
-		echo 'No image';
+		echo '우주가 도와주지 않았습니다.';
 	}
 }));

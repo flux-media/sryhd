@@ -48,9 +48,8 @@
                 {!!Form::open(array('url' => 'save', 'files' => true))!!}
                 {!!Form::file('screen')!!}
                 {!!Form::text('quote')!!}
-                {!!Form::submit('합시다')!!}
+                {!!Form::submit('간절하게 바라기')!!}
                 {!!Form::close()!!}
-                <!-- <div class="quote">{{ Inspiring::quote() }}</div> -->
             </div>
         </div>
     </body>
