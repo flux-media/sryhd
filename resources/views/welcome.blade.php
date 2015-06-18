@@ -45,7 +45,7 @@
         <div class="container">
             <div class="content">
                 <div class="title">살려야한다</div>
-                {!!Form::open(array('url' => 'save', 'files' => true))!!}
+                {!!Form::open(array('url' => 'save', 'files' => true, 'method' => 'get'))!!}
                 {!!Form::file('screen')!!}
                 {!!Form::text('quote')!!}
                 {!!Form::submit('간절하게 바라기')!!}
