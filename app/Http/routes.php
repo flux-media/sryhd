@@ -13,24 +13,28 @@
 
 use Illuminate\Http\Request;
 
+define('TITLE', '살려야한다');
+
 Route::get('/', function () {
-	// echo phpinfo();
-  return view('welcome');
+  return view('welcome', array(
+  	'title' => TITLE,
+  	'isIndex' => true
+  ));
 });
 
 Route::post('/save', array('before' => 'csrf', function(Request $request) {
 	$file = $request->file('screen');
+	$motto = trim($request->input('motto'));
+
 	if ($request->hasFile('screen') && $file->isValid()) {
 		$base = Image::make('empty_screen.jpg');
-		$screen = Image::make($file)->resize(217, 123);
+		$screen = Image::make($file)->resize(218, 123);
 
 		// Insert a screen
-		$base->insert($screen, 'top-left', 3, 56);
+		$base->insert($screen, 'top-left', 3, 55);
 
 		// Insert a quote
-		$base->text('살려야한다', 250, 67, function($font) {
-			// $font->file('gungsuh.ttf');
-			// $font->file('NanumGothicExtraBold.ttf');
+		$base->text($motto === ''? TITLE: $motto, 250, 67, function($font) {
 			$font->file(public_path('NanumMyeongjoExtraBold.ttf'));
 			$font->size(13);
 			$font->valign('top');
@@ -38,6 +42,10 @@ Route::post('/save', array('before' => 'csrf', function(Request $request) {
 
 		return $base->response('jpg', 100);
 	} else {
-		echo '우주가 도와주지 않았습니다.';
+		return view('welcome', array(
+			'title' 	=> TITLE,
+			'isIndex' => false,
+	  	'message' => '우주가 도와주지 않았습니다.'
+	  ));
 	}
 }));

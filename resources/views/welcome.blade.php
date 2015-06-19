@@ -1,9 +1,18 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>살려야한다</title>
+        <title>{{ $title }}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-        <link href='//fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css'>
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:title" content="{{ $title }}">
+        <meta name="twitter:image" content="{{ URL::asset('original.jpg') }}">
+
+        <!-- Open Graph data -->
+        <meta property="og:title" content="{{ $title }}" />
+        <meta property="og:type" content="article" />
+        <meta property="og:image" content="{{ URL::asset('original.jpg') }}" />
+        <meta property="og:site_name" content="{{ $title }}" />
 
         <style>
             html, body {
@@ -16,8 +25,6 @@
                 width: 100%;
                 color: #B0BEC5;
                 display: table;
-                font-weight: 100;
-                font-family: 'Lato';
             }
 
             .container {
@@ -35,19 +42,15 @@
                 font-size: 96px;
                 margin-bottom: 40px;
             }
-
-            .quote {
-                font-size: 24px;
-            }
         </style>
     </head>
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">살려야한다</div>
+                <div class="title">{{ $isIndex? $title: $message }}</div>
                 {!!Form::open(array('url' => 'save', 'files' => true ))!!}
                 {!!Form::file('screen')!!}
-                {!!Form::text('quote')!!}
+                {!!Form::text('motto')!!}
                 {!!Form::submit('간절하게 바라기')!!}
                 {!!Form::close()!!}
             </div>
