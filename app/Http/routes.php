@@ -33,7 +33,23 @@ Route::post('/save', array('before' => 'csrf', function(Request $request) {
 
 		// Insert a screen
 		if ($request->hasFile('screen')) {
-			$screen = Image::make($file)->resize(218, 123);
+			$screen = Image::make($file);
+			$width = $screen->width();
+			$height = $screen->height();
+			if ($width / $height >= 218 / 123) {
+				$screen = $screen->resize(null, 123, function($constraint) {
+					$constraint->aspectRatio();
+				});
+				$width = $screen->width() > 218 ? $screen->width() : 218;
+				$screen = $screen->crop(218, 123, (int) (($width - 218) / 2), 0);
+			} else {
+				$screen = $screen->resize(218, null, function($constraint) {
+					$constraint->aspectRatio();
+				});
+				$height = $screen->height() > 123 ? $screen->height() : 123;
+				$screen = $screen->crop(218, 123, 0, (int) (($height - 123) / 2));
+			}
+			
 			$base->insert($screen, 'top-left', 3, 55);	
 		}
 		
